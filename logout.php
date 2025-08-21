@@ -1,7 +1,11 @@
 <?php
+// This script securely ends the user's session.
 session_start();
+// Unset all session variables.
 session_unset();
+// Destroy the session completely.
 session_destroy();
+// Redirect to the login page.
 header("Location: login.php");
 exit();
 ?>

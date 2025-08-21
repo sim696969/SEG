@@ -145,6 +145,7 @@
         </div>
     </div>
     
+    <!-- Feedback Modal -->
     <div id="feedbackModal" class="modal">
       <div class="modal-content">
         <span class="close-btn">&times;</span>

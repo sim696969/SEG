@@ -26,9 +26,11 @@
   <?php include 'sidebar.php'; ?>
 
   <main>
-    <header>
-      <h1>Admin Dashboard</h1>
-      <a href="logout.php" class="logout-btn">Logout</a>
+    <header class="dashboard-header">
+        <div class="header-left">
+            <h1>Admin Dashboard</h1>
+            <p>Manage all student feedback.</p>
+        </div>
     </header>
 
     <div class="admin-table-container">

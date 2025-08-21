@@ -1,7 +1,8 @@
 <?php
-// Secure and reusable database connection function
+// This function establishes a secure connection to the database.
 function getDbConnection() {
-    static $conn; // Use a static variable to avoid multiple connections
+    // static variable ensures the connection is made only once per request.
+    static $conn; 
 
     if ($conn === null) {
         $db_server = "localhost";
@@ -12,17 +13,18 @@ function getDbConnection() {
         try {
             $conn = mysqli_connect($db_server, $db_user, $db_pass, $db_name);
             if (!$conn) {
+                // Log errors for the developer instead of showing them to the user.
                 error_log("Database connection failed: " . mysqli_connect_error());
-                die("A database error occurred. Please try again later.");
+                die("Could not connect to the database. Please try again later.");
             }
         } catch (mysqli_sql_exception $e) {
             error_log("Database connection exception: " . $e->getMessage());
-            die("Could not connect to the database.");
+            die("A database error occurred.");
         }
     }
     return $conn;
 }
 
-// Get the connection for use in your files
+// Make the connection variable available to any file that includes this one.
 $conn = getDbConnection();
 ?>

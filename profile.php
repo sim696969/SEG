@@ -2,7 +2,6 @@
   require_once("api/database.php");
   session_start();
 
-  // Security check
   if (!isset($_SESSION['user_id'])) {
       header("Location: login.php");
       exit();
@@ -10,12 +9,20 @@
 
   $user_id = $_SESSION['user_id'];
 
+  // Fetch the current user's details
+  $user_sql = "SELECT username, email, stu_id FROM users_info WHERE id = ?";
+  $stmt_user = mysqli_prepare($conn, $user_sql);
+  mysqli_stmt_bind_param($stmt_user, "i", $user_id);
+  mysqli_stmt_execute($stmt_user);
+  $user_result = mysqli_stmt_get_result($stmt_user);
+  $user = mysqli_fetch_assoc($user_result);
+
   // Fetch all feedback submitted by the current user
-  $sql = "SELECT * FROM feedback WHERE user_id = ? ORDER BY date DESC";
-  $stmt = mysqli_prepare($conn, $sql);
-  mysqli_stmt_bind_param($stmt, "i", $user_id);
-  mysqli_stmt_execute($stmt);
-  $result = mysqli_stmt_get_result($stmt);
+  $feedback_sql = "SELECT * FROM feedback WHERE user_id = ? ORDER BY date DESC";
+  $stmt_feedback = mysqli_prepare($conn, $feedback_sql);
+  mysqli_stmt_bind_param($stmt_feedback, "i", $user_id);
+  mysqli_stmt_execute($stmt_feedback);
+  $feedback_result = mysqli_stmt_get_result($stmt_feedback);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,36 +38,48 @@
   <main>
     <header class="dashboard-header">
         <div class="header-left">
-            <h1>My Feedback History</h1>
-            <p>A record of all your submissions.</p>
+            <h1>My Profile</h1>
+            <p>View your information and feedback history.</p>
         </div>
         <div class="header-right">
-            <div class="search-bar">
-                <input type="text" placeholder="Search...">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
-            </div>
             <button id="feedbackBtn" class="new-feedback-btn">+ New Feedback</button>
         </div>
     </header>
 
-    <div class="feedback-box">
-      <?php if($result && mysqli_num_rows($result) > 0): ?>
-          <?php while($row = mysqli_fetch_assoc($result)): ?>
-              <div class="feedback-item">
-                  <div class="feedback-meta">
-                      <span class="feedback-category"><?php echo htmlspecialchars($row["category"]); ?></span>
-                      <span class="feedback-status <?php echo strtolower($row['status']); ?>"><?php echo htmlspecialchars($row['status']); ?></span>
-                  </div>
-                  <div class="feedback-content"><?php echo htmlspecialchars($row["feedback"]); ?></div>
-                  <div class="feedback-date">Submitted on: <?php echo date("d M Y, h:i A", strtotime($row["date"])); ?></div>
-              </div>
-          <?php endwhile; ?>
-      <?php else: ?>
-          <p class="no-feedback">You have not submitted any feedback yet.</p>
-      <?php endif; ?>
+    <div class="profile-container">
+        <div class="profile-card">
+            <div class="profile-avatar">
+                <?php echo strtoupper(substr($user['username'], 0, 1)); ?>
+            </div>
+            <div class="profile-info">
+                <h2><?php echo htmlspecialchars($user['username']); ?></h2>
+                <p><?php echo htmlspecialchars($user['email']); ?></p>
+                <span>Student ID: <?php echo htmlspecialchars($user['stu_id']); ?></span>
+            </div>
+        </div>
+
+        <div class="feedback-history">
+            <h2>Your Feedback History</h2>
+            <div class="feedback-list">
+                <?php if($feedback_result && mysqli_num_rows($feedback_result) > 0): ?>
+                    <?php while($row = mysqli_fetch_assoc($feedback_result)): ?>
+                        <div class="feedback-item">
+                            <div class="feedback-meta">
+                                <span class="feedback-category"><?php echo htmlspecialchars($row["category"]); ?></span>
+                                <span class="feedback-status <?php echo strtolower($row['status']); ?>"><?php echo htmlspecialchars($row['status']); ?></span>
+                            </div>
+                            <div class="feedback-content"><?php echo htmlspecialchars($row["feedback"]); ?></div>
+                            <div class="feedback-date">Submitted on: <?php echo date("d M Y, h:i A", strtotime($row["date"])); ?></div>
+                        </div>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p class="no-feedback">You have not submitted any feedback yet.</p>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
-    <!-- Feedback Modal (Required for the button to work) -->
+    <!-- Feedback Modal -->
     <div id="feedbackModal" class="modal">
       <div class="modal-content">
         <span class="close-btn">&times;</span>

@@ -4,6 +4,7 @@
     $error = "";
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
+        // Sanitize all user inputs to prevent XSS attacks.
         $stu_id = filter_input(INPUT_POST, "stu_id", FILTER_SANITIZE_SPECIAL_CHARS);
         $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
         $phone_num = filter_input(INPUT_POST, "phone_num", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -15,13 +16,11 @@
         } elseif (!$email) {
             $error = "Invalid email format.";
         } else {
-            // This code will now work because $conn is a valid connection.
+            // Use prepared statements to prevent SQL injection.
             $check_sql = "SELECT id FROM users_info WHERE username=? OR email=?";
             $stmt = mysqli_prepare($conn, $check_sql);
             
-            // This check prevents the error you are seeing
             if ($stmt === false) {
-                // Log the actual SQL error for debugging
                 error_log("SQL Prepare Failed: " . mysqli_error($conn));
                 $error = "An unexpected error occurred. Please try again later.";
             } else {
@@ -32,8 +31,9 @@
                 if (mysqli_stmt_num_rows($stmt) > 0) {
                     $error = "Username or Email is already registered!";
                 } else {
+                    // Hash the password for secure storage.
                     $hash = password_hash($password, PASSWORD_DEFAULT);
-                    $role = 'user';
+                    $role = 'user'; // Default role for all new registrations.
 
                     $insert_sql = "INSERT INTO users_info (stu_id, username, email, phone_num, password, role) VALUES (?, ?, ?, ?, ?, ?)";
                     $stmt_insert = mysqli_prepare($conn, $insert_sql);

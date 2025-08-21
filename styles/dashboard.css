@@ -163,3 +163,190 @@ main {
 .resolve-btn:hover { 
     background-color: #0b7dda; 
 }
+.calendar-container {
+    background-color: var(--main-color);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    margin-top: 2rem;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.nav-btn {
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    color: var(--secondary-text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-btn:hover {
+    background-color: var(--primary-accent);
+    color: white;
+    border-color: var(--primary-accent);
+}
+
+.calendar-weekdays, .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-weekdays div {
+    text-align: center;
+    font-weight: 600;
+    color: var(--secondary-text-color);
+    padding-bottom: 10px;
+}
+
+.calendar-grid .day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.calendar-grid .day:hover {
+    background-color: #f0f4ff;
+    cursor: pointer;
+}
+
+.calendar-grid .prev-month, .calendar-grid .next-month {
+    color: #ccc;
+}
+
+.calendar-grid .today {
+    background-color: var(--primary-accent);
+    color: white;
+}
+
+.profile-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Profile card takes 1/3, history takes 2/3 */
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.profile-card {
+    background-color: var(--main-color);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    text-align: center;
+    height: fit-content; /* Makes the card only as tall as its content */
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--primary-accent);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0 auto 1rem auto;
+}
+
+.profile-info h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.profile-info p {
+    color: var(--secondary-text-color);
+    margin-bottom: 1rem;
+}
+
+.profile-info span {
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+    background-color: #f0f4ff;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.feedback-history {
+    background-color: var(--main-color);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+}
+
+.feedback-history h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.no-feedback {
+    text-align: center;
+    padding: 2rem;
+    color: var(--secondary-text-color);
+}
+
+.admin-table-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-top: 2rem;
+}
+.admin-table-container h2 { 
+    color: #333; 
+    margin-bottom: 15px; 
+    font-size: 1.4rem;
+}
+.feedback-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #333;
+}
+.feedback-table th, .feedback-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    vertical-align: middle;
+}
+.feedback-table th { 
+    font-weight: 600; 
+    font-size: 14px; 
+    background-color: #f9fafb;
+}
+.feedback-table tbody tr:hover { 
+    background-color: #f9f9f9; 
+}
+.resolve-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+.resolve-btn:hover { 
+    background-color: #0b7dda; 
+}
