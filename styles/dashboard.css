@@ -350,3 +350,74 @@ main {
 .resolve-btn:hover { 
     background-color: #0b7dda; 
 }
+.average-rating-container {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #f0f0f0;
+    text-align: center;
+}
+
+.average-rating-container h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--secondary-text-color);
+    margin-bottom: 0.5rem;
+}
+
+.average-rating-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.rating-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+}
+
+.rating-stars {
+    font-size: 1.5rem;
+}
+
+.analytics-star {
+    color: #e0e0e0; /* Empty star color */
+}
+
+.analytics-star.filled {
+    color: #ffc107; /* Filled star color */
+}
+
+/* This is a trick for the half-star */
+.analytics-star.half {
+    position: relative;
+    display: inline-block;
+    color: #e0e0e0;
+}
+.analytics-star.half::before {
+    content: '\2605'; /* Filled star character */
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    overflow: hidden;
+    color: #ffc107;
+}
+.admin-analytics-container {
+    margin-bottom: 2rem;
+}
+
+.admin-chart-container {
+    background-color: var(--main-color);
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: var(--card-shadow);
+    height: 350px; /* Give the chart a fixed height */
+}
+
+.admin-chart-container h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}

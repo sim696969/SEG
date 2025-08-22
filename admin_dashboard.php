@@ -4,15 +4,26 @@
 
   // Security Check: Only allow users with the 'admin' role to access this page.
   if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-      // If the user is not an admin, redirect them to the login page.
       header("Location: login.php");
       exit();
   }
 
-  // Fetch all feedback from the database, joining with the users_info table to get usernames.
-  // Order the results to show unresolved feedback first.
+  // Fetch all feedback for the main table
   $sql = "SELECT f.*, u.username FROM feedback f JOIN users_info u ON f.user_id = u.id ORDER BY f.status ASC, f.date DESC";
   $result = mysqli_query($conn, $sql);
+
+  // Fetch data for the category analytics chart
+  $category_sql = "SELECT category, COUNT(*) as count FROM feedback GROUP BY category";
+  $category_result = mysqli_query($conn, $category_sql);
+
+  $categories = [];
+  $category_counts = [];
+  if ($category_result) {
+      while($row = mysqli_fetch_assoc($category_result)) {
+          $categories[] = $row['category'];
+          $category_counts[] = $row['count'];
+      }
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,6 +32,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="styles/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <?php include 'sidebar.php'; ?>
@@ -32,6 +44,13 @@
             <p>Manage all student feedback.</p>
         </div>
     </header>
+
+    <div class="admin-analytics-container">
+        <div class="admin-chart-container">
+            <h2>Feedback by Category</h2>
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
 
     <div class="admin-table-container">
         <h2>All User Feedback</h2>
@@ -62,7 +81,6 @@
                                 </span>
                             </td>
                             <td>
-                                <!-- Only show the "Resolve" button if the status is "Unresolved" -->
                                 <?php if($row['status'] == 'Unresolved'): ?>
                                     <form action="update_status.php" method="POST" style="display:inline;">
                                         <input type="hidden" name="feedback_id" value="<?php echo $row['id']; ?>">
@@ -79,5 +97,12 @@
         </table>
     </div>
 </main>
+
+<script>
+// Pass the category data from PHP to JavaScript for the chart
+const categoryLabels = <?php echo json_encode($categories); ?>;
+const categoryData = <?php echo json_encode($category_counts); ?>;
+</script>
+<script src="script/admin_dashboard.js" defer></script>
 </body>
 </html>

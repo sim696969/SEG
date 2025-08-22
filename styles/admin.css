@@ -1,0 +1,85 @@
+/* --- Admin Theme Overrides --- */
+:root {
+    --admin-bg-color: #1e293b; /* Dark Slate */
+    --admin-sidebar-color: #0f172a; /* Even Darker Slate */
+    --admin-main-color: #334155; /* Mid Slate */
+    --admin-text-color: #f1f5f9; /* Light Gray */
+    --admin-secondary-text-color: #94a3b8; /* Slate Gray */
+    --admin-primary-accent: #38bdf8; /* Sky Blue */
+    --admin-card-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.admin-theme {
+    background-color: var(--admin-bg-color);
+    color: var(--admin-text-color);
+}
+
+.admin-theme main {
+    padding: 2rem;
+    width: 100%;
+}
+
+/* --- Admin Sidebar --- */
+.admin-theme #sidebar {
+    background: var(--admin-sidebar-color);
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+}
+
+.admin-theme .sidebar-title {
+    color: var(--admin-text-color);
+}
+
+.admin-theme .nav-links li a {
+    color: var(--admin-secondary-text-color);
+}
+.admin-theme .nav-links li a svg {
+    fill: var(--admin-secondary-text-color);
+}
+
+.admin-theme .nav-links li a:hover {
+    background-color: var(--admin-main-color);
+    color: var(--admin-primary-accent);
+}
+.admin-theme .nav-links li a:hover svg {
+    fill: var(--admin-primary-accent);
+}
+
+.admin-theme .nav-links li.active a {
+    background-color: var(--admin-primary-accent);
+    color: #fff;
+}
+.admin-theme .nav-links li.active a svg {
+    fill: #fff;
+}
+
+/* --- Admin Header & Main Content --- */
+.admin-theme .dashboard-header h1 {
+    color: var(--admin-text-color);
+}
+.admin-theme .dashboard-header p {
+    color: var(--admin-secondary-text-color);
+}
+
+.admin-theme .admin-analytics-container .admin-chart-container,
+.admin-theme .admin-table-container {
+    background-color: var(--admin-main-color);
+    box-shadow: var(--admin-card-shadow);
+}
+
+.admin-theme .admin-chart-container h2,
+.admin-theme .admin-table-container h2 {
+    color: var(--admin-text-color);
+}
+
+.admin-theme .feedback-table {
+    color: var(--admin-text-color);
+}
+
+.admin-theme .feedback-table th {
+    background-color: var(--admin-sidebar-color);
+    color: var(--admin-text-color);
+}
+
+.admin-theme .feedback-table tbody tr:hover { 
+    background-color: #475569; /* Lighter Slate on hover */
+}
