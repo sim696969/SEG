@@ -39,6 +39,11 @@
   <main>
     <header class="dashboard-header">
         <div class="header-left">
+            <button id="mainSidebarToggle" class="main-sidebar-toggle" title="Show Sidebar">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+                </svg>
+            </button>
             <h1>My Profile</h1>
             <p>View your information and feedback history.</p>
         </div>
@@ -118,5 +123,6 @@
     <?php endif; ?>
   </main>
 <script src="script/dashboard.js" defer></script>
+<script src="script/sidebar.js" defer></script>
 </body>
 </html>

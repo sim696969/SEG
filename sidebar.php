@@ -14,8 +14,17 @@ if (isset($_SESSION['role'])) {
 ?>
 <nav id="sidebar" class="<?php echo $theme_class; ?>">
     <div class="sidebar-header">
-        <img src="pic/ViTrox.png" alt="Logo" class="sidebar-logo">
-        <span class="sidebar-title">ViTrox College</span>
+        <div class="sidebar-toggle-container">
+            <button id="sidebarToggle" class="sidebar-toggle-btn" title="Toggle Sidebar">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor">
+                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="sidebar-title-container">
+            <img src="pic/ViTrox.png" alt="Logo" class="sidebar-logo">
+            <span class="sidebar-title">ViTrox College</span>
+        </div>
     </div>
     <ul class="nav-links">
         <!-- Home Link -->
