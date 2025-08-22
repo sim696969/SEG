@@ -49,9 +49,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Dashboard</title>
   <link rel="stylesheet" href="styles/dashboard.css">
+  <link rel="stylesheet" href="styles/student.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="student-theme">
   <?php include 'sidebar.php'; ?>
 
   <main>
@@ -65,7 +66,9 @@
               <input type="text" placeholder="Search...">
               <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
           </div>
+          <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
           <button id="feedbackBtn" class="new-feedback-btn">+ New Feedback</button>
+          <?php endif; ?>
       </div>
     </header>
 
@@ -141,11 +144,24 @@
         </div>
         <div class="feedback-analytics">
             <h2>Feedback Analytics</h2>
-            <div class="chart-container"><canvas id="feedbackChart"></canvas></div>
+            <div class="chart-container">
+                <canvas id="feedbackChart"></canvas>
+            </div>
+            <div class="analytics-summary">
+                <div class="summary-item">
+                    <span class="summary-label">Total Submissions</span>
+                    <span class="summary-value"><?php echo $total_feedback; ?></span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Resolution Rate</span>
+                    <span class="summary-value"><?php echo $total_feedback > 0 ? round(($total_resolved / $total_feedback) * 100) : 0; ?>%</span>
+                </div>
+            </div>
         </div>
     </div>
     
-    <!-- Feedback Modal -->
+    <!-- Feedback Modal - Only for non-admin users -->
+    <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
     <div id="feedbackModal" class="modal">
       <div class="modal-content">
         <span class="close-btn">&times;</span>
@@ -177,12 +193,68 @@
         </form>
       </div>
     </div>
+    <?php endif; ?>
   </main>
 
 <script>
 // Pass PHP data to JavaScript for the chart
 const unresolvedCount = <?php echo $total_unresolved; ?>;
 const resolvedCount = <?php echo $total_resolved; ?>;
+const totalFeedback = <?php echo $total_feedback; ?>;
+
+// Create the feedback analytics chart
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('feedbackChart');
+    
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Resolved', 'Unresolved'],
+                datasets: [{
+                    data: [resolvedCount, unresolvedCount],
+                    backgroundColor: [
+                        '#10b981', // Green for resolved
+                        '#f59e0b'  // Amber for unresolved
+                    ],
+                    borderColor: [
+                        '#059669',
+                        '#d97706'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            font: {
+                                size: 12
+                            }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((value / total) * 100).toFixed(1);
+                                return `${label}: ${value} (${percentage}%)`;
+                            }
+                        }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+    }
+});
 </script>
 <script src="script/dashboard.js" defer></script>
 </body>

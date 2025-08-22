@@ -32,9 +32,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="styles/dashboard.css">
+  <link rel="stylesheet" href="styles/admin.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
+<body class="admin-theme">
   <?php include 'sidebar.php'; ?>
 
   <main>

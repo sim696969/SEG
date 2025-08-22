@@ -1,0 +1,313 @@
+/* === STUDENT THEME === */
+/* This stylesheet provides a clean, modern, and user-friendly interface for the student dashboard. */
+
+:root {
+    --student-bg-color: #f8fafc; /* Very Light Gray */
+    --student-main-color: #ffffff; /* Pure White */
+    --student-text-color: #1e293b; /* Dark Slate */
+    --student-secondary-text-color: #64748b; /* Slate Gray */
+    --student-primary-accent: #06b6d4; /* Cyan */
+    --student-secondary-accent: #8b5cf6; /* Purple */
+    --student-card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --student-hover-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+body.student-theme {
+    background-color: var(--student-bg-color);
+    color: var(--student-text-color);
+}
+
+.student-theme main {
+    padding: 2rem;
+    width: 100%;
+}
+
+/* --- Student Sidebar --- */
+.student-theme #sidebar {
+    background: linear-gradient(135deg, var(--student-primary-accent), var(--student-secondary-accent));
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.2);
+}
+
+.student-theme .sidebar-title {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.student-theme .nav-links li a {
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+.student-theme .nav-links li a svg {
+    fill: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+.student-theme .nav-links li a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    transform: translateX(5px);
+}
+
+.student-theme .nav-links li a:hover svg {
+    fill: #ffffff;
+}
+
+.student-theme .nav-links li.active a {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+}
+
+.student-theme .nav-links li.active a svg {
+    fill: #ffffff;
+}
+
+/* --- Student Header & Main Content --- */
+.student-theme .dashboard-header h1 {
+    color: var(--student-text-color);
+    font-weight: 700;
+    font-size: 2.2rem;
+    background: linear-gradient(135deg, var(--student-primary-accent), var(--student-secondary-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.student-theme .dashboard-header p {
+    color: var(--student-secondary-text-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.student-theme .dashboard-header {
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 2rem;
+}
+
+.student-theme .dashboard-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--student-primary-accent), var(--student-secondary-accent));
+    border-radius: 2px;
+}
+
+/* --- Stats Cards with Enhanced Design --- */
+.student-theme .stats-container {
+    gap: 1.5rem;
+}
+
+.student-theme .stats-card {
+    background: linear-gradient(135deg, var(--student-main-color), #f8fafc);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.student-theme .stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--student-primary-accent), var(--student-secondary-accent));
+}
+
+.student-theme .stats-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--student-hover-shadow);
+}
+
+.student-theme .stats-card img {
+    width: 52px;
+    height: 52px;
+    transition: transform 0.3s ease;
+}
+
+.student-theme .stats-card:hover img {
+    transform: scale(1.1);
+}
+
+/* --- Course Cards with Enhanced Design --- */
+.student-theme .course-card {
+    background: linear-gradient(135deg, #ffffff, #f8fafc);
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.student-theme .course-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--student-hover-shadow);
+    border-color: var(--student-primary-accent);
+}
+
+.student-theme .course-icon {
+    transition: all 0.3s ease;
+}
+
+.student-theme .course-card:hover .course-icon {
+    transform: scale(1.1);
+}
+
+/* --- Feedback Items with Enhanced Design --- */
+.student-theme .feedback-item-card {
+    background: var(--student-main-color);
+    padding: 1rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.student-theme .feedback-item-card:hover {
+    transform: translateX(5px);
+    box-shadow: var(--student-hover-shadow);
+    border-color: var(--student-primary-accent);
+}
+
+.student-theme .user-avatar {
+    background: linear-gradient(135deg, var(--student-primary-accent), var(--student-secondary-accent));
+    font-weight: 700;
+    transition: transform 0.3s ease;
+}
+
+.student-theme .feedback-item-card:hover .user-avatar {
+    transform: scale(1.1);
+}
+
+/* --- Enhanced Button Styles --- */
+.student-theme .new-feedback-btn {
+    background: linear-gradient(135deg, var(--student-primary-accent), var(--student-secondary-accent));
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+}
+
+.student-theme .new-feedback-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+}
+
+/* --- Search Bar Enhancement --- */
+.student-theme .search-bar input {
+    border: 2px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.student-theme .search-bar input:focus {
+    border-color: var(--student-primary-accent);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+    outline: none;
+}
+
+/* --- Chart Container Enhancement --- */
+.student-theme .chart-container {
+    background: var(--student-main-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: var(--student-card-shadow);
+    margin-bottom: 1rem;
+}
+
+/* --- Analytics Summary --- */
+.student-theme .analytics-summary {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.student-theme .summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.student-theme .summary-label {
+    font-size: 0.8rem;
+    color: var(--student-secondary-text-color);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.student-theme .summary-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--student-primary-accent);
+}
+
+/* --- Modal Enhancement --- */
+.student-theme .modal-content {
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.student-theme .btn-submit {
+    background: linear-gradient(135deg, var(--student-primary-accent), var(--student-secondary-accent));
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.student-theme .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+}
+
+/* --- Student Sidebar Footer --- */
+.student-theme .sidebar-footer a {
+    color: #ffffff !important; /* Force white text for better visibility */
+    transition: all 0.3s ease;
+}
+
+.student-theme .sidebar-footer a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.student-theme .sidebar-footer a svg {
+    fill: #ffffff !important; /* Force white icon for better visibility */
+    transition: all 0.3s ease;
+}
+
+.student-theme .sidebar-footer a:hover svg {
+    fill: #ffffff !important; /* Keep white on hover */
+}
+
+/* --- Student Calendar Enhancements --- */
+.student-theme .calendar-legend {
+    background: linear-gradient(135deg, var(--student-main-color), #f8fafc);
+    border: 1px solid #e2e8f0;
+}
+
+.student-theme .feedback-indicator.student-feedback {
+    background: linear-gradient(135deg, var(--student-primary-accent), var(--student-secondary-accent));
+    box-shadow: 0 2px 4px rgba(6, 182, 212, 0.3);
+}
+
+.student-theme .calendar-container {
+    background: linear-gradient(135deg, var(--student-main-color), #f8fafc);
+    border: 1px solid #e2e8f0;
+    box-shadow: var(--student-card-shadow);
+}

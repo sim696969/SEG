@@ -31,8 +31,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Profile</title>
   <link rel="stylesheet" href="styles/dashboard.css">
+  <link rel="stylesheet" href="styles/student.css">
 </head>
-<body>
+<body class="student-theme">
   <?php include 'sidebar.php'; ?>
 
   <main>
@@ -42,7 +43,9 @@
             <p>View your information and feedback history.</p>
         </div>
         <div class="header-right">
+            <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
             <button id="feedbackBtn" class="new-feedback-btn">+ New Feedback</button>
+            <?php endif; ?>
         </div>
     </header>
 
@@ -79,7 +82,8 @@
         </div>
     </div>
 
-    <!-- Feedback Modal -->
+    <!-- Feedback Modal - Only for non-admin users -->
+    <?php if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin'): ?>
     <div id="feedbackModal" class="modal">
       <div class="modal-content">
         <span class="close-btn">&times;</span>
@@ -111,6 +115,7 @@
         </form>
       </div>
     </div>
+    <?php endif; ?>
   </main>
 <script src="script/dashboard.js" defer></script>
 </body>

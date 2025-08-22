@@ -77,7 +77,15 @@ main {
 .feedback-date-card { font-size: 0.9rem; color: var(--secondary-text-color); white-space: nowrap; }
 
 /* --- Analytics Chart --- */
-.chart-container { position: relative; width: 100%; height: 250px; margin-top: 1rem; }
+.chart-container { 
+    position: relative; 
+    width: 100%; 
+    height: 250px; 
+    margin-top: 1rem; 
+    background: #fff;
+    border-radius: 12px;
+    padding: 1rem;
+}
 
 /* --- Sidebar Styles --- */
 #sidebar {
@@ -101,8 +109,26 @@ main {
 .nav-links li.active a { background-color: var(--primary-accent); color: white; }
 .nav-links li.active a svg { fill: white; }
 .sidebar-footer { margin-top: auto; }
-.sidebar-footer a { display: flex; align-items: center; padding: 1rem 0.8rem; text-decoration: none; color: var(--secondary-text-color); }
-.sidebar-footer a svg { fill: var(--secondary-text-color); margin-right: 15px; }
+.sidebar-footer a { 
+    display: flex; 
+    align-items: center; 
+    padding: 1rem 0.8rem; 
+    text-decoration: none; 
+    color: #ffffff; /* White text for better visibility */
+    transition: all 0.3s ease;
+}
+.sidebar-footer a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+.sidebar-footer a svg { 
+    fill: #ffffff; /* White icon for better visibility */
+    margin-right: 15px; 
+    transition: all 0.3s ease;
+}
+.sidebar-footer a:hover svg {
+    fill: #ffffff; /* Keep white on hover */
+}
 
 /* --- Modal Styles --- */
 .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
@@ -219,10 +245,13 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60px;
+    height: 80px;
     border-radius: 8px;
     font-weight: 500;
     transition: background-color 0.3s;
+    position: relative;
+    min-height: 80px;
+    overflow: visible; /* Ensure feedback indicators are visible */
 }
 
 .calendar-grid .day:hover {
@@ -237,6 +266,97 @@ main {
 .calendar-grid .today {
     background-color: var(--primary-accent);
     color: white;
+}
+
+/* --- Calendar Feedback Indicators --- */
+.feedback-indicator {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+    font-size: 10px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+    color: white;
+    overflow: hidden;
+    z-index: 10; /* Ensure it's above other elements */
+    min-height: 16px; /* Ensure minimum height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.feedback-indicator.admin-feedback {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+.feedback-indicator.high-rating {
+    background: linear-gradient(135deg, #10b981, #059669);
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+.feedback-indicator.low-rating {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);
+}
+
+.feedback-indicator .rating {
+    display: block;
+    font-size: 8px;
+    margin-bottom: 1px;
+}
+
+.feedback-indicator .category {
+    display: block;
+    font-size: 7px;
+    opacity: 0.9;
+}
+
+/* --- Calendar Legend --- */
+.calendar-legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--main-color);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--secondary-text-color);
+}
+
+.legend-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.legend-dot.admin-feedback {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.legend-dot.student-feedback {
+    background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+}
+
+.legend-dot.high-rating {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.legend-dot.low-rating {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
 }
 
 .profile-container {

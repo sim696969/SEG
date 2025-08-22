@@ -1,8 +1,18 @@
 <?php
 // Get the current page filename to dynamically highlight the active link
 $current_page = basename($_SERVER['PHP_SELF']);
+
+// Determine the theme class based on user role
+$theme_class = '';
+if (isset($_SESSION['role'])) {
+    if ($_SESSION['role'] === 'admin') {
+        $theme_class = 'admin-theme';
+    } else {
+        $theme_class = 'student-theme';
+    }
+}
 ?>
-<nav id="sidebar">
+<nav id="sidebar" class="<?php echo $theme_class; ?>">
     <div class="sidebar-header">
         <img src="pic/ViTrox.png" alt="Logo" class="sidebar-logo">
         <span class="sidebar-title">ViTrox College</span>
@@ -22,13 +32,22 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <span>Calendar</span>
             </a>
         </li>
-        <!-- Profile Link -->
+        <!-- Profile Link - Different for admin vs student -->
+        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+        <li class="<?php echo ($current_page == 'admin_profile.php') ? 'active' : ''; ?>">
+            <a href="admin_profile.php">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-120q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-200v-80h80v80H160Zm0-160v-80h80v80H160Zm0-160v-80h80v80H160Zm160-160v-80h80v80H320Zm0 480v-80h80v80H320Zm160-480v-80h80v80H480Zm0 480v-80h80v80H480Zm160-480v-80h80v80H640Zm0 480v-80h80v80H640Zm160-320v-80h80v80H800Zm0-160v-80h80v80H800Zm0 320v-80h80v80H800ZM80-120v-720q0-33 23.5-56.5T160-920h640q33 0 56.5 23.5T880-840v720q0 33-23.5 56.5T800-40H160q-33 0-56.5-23.5T80-120Zm80-80h640v-720H160v720Zm0 0v-720 720Z"/></svg>
+                <span>Admin Profile</span>
+            </a>
+        </li>
+        <?php else: ?>
         <li class="<?php echo ($current_page == 'profile.php') ? 'active' : ''; ?>">
             <a href="profile.php">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0-66-47-113t-113-47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q62 0 126 15.5T736-378q29 15 46.5 43.5T800-272v112H160Zm80-80h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-57 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg>
                 <span>Profile</span>
             </a>
         </li>
+        <?php endif; ?>
          <!-- Admin Panel (Only shows for admin users) -->
         <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
         <li class="<?php echo ($current_page == 'admin_dashboard.php') ? 'active' : ''; ?>">

@@ -1,10 +1,19 @@
 <?php
+// Enable error display for debugging
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Start session
 session_start();
-require_once 'api/database.php';
+
+// Test database connection with error handling
+try {
+    require_once 'api/database.php';
+    echo "<!-- Database file loaded successfully -->";
+} catch (Exception $e) {
+    die("Database file error: " . $e->getMessage());
+}
 
 $errors = [];
 
